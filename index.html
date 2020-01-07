@@ -1,5 +1,118 @@
 <html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="css/animate.css">
+		<link rel="stylesheet" href="css/style.css">
+
+	</head>
 	<body>
-		hello ?
+		<div class="body-light">
+			<button id="btn-sidebar-light" data-btn-light class="btn-icon-light" data-text="<i class='fa fa-bars' aria-hidden='true'></i>"></button>
+			<div id="sidebar-light" class="animated">
+				<div class="sidebar-head-light">
+					<div style="flex: 2">
+						<img src="img/user.png" class="img-thumbnail">
+					</div>
+					<div style="flex: 10">
+						<div style="height: 100%;display: table;padding-left:50px">
+							<div style="display: table-row;">
+								<div style="vertical-align: middle;display: table-cell;color:#fafafa">
+									<h2>Faouzi Chachoub</h2>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<ul class="sidebar-list-light">
+						<li> <a data-followed-light class="item_followed_light">sss</a></li>
+						<li> <a data-followed-light class="item_followed_light">sss</a></li>
+						<li> <a data-followed-light class="item_followed_light">sss</a></li>
+						<li> <a data-followed-light class="item_followed_light">sss</a></li>
+						<li> <a data-followed-light class="item_followed_light">sss</a></li>
+						<li> <a data-followed-light class="item_followed_light">sss</a></li>
+					</ul>
+				</div>
+				
+			</div>
+			<div class="content-light">
+			<div class="content-container-light">
+				<div class="card-light" >
+					<div class="card-head-light followed-light" data-base-color="rgba(75,75,75,0.2)" data-second-color="rgba(255,255,255,0.1)" ><div class="card-head-title-light"><h4>Paragraph<h4></div></div>
+						<div class="card-body-light" data-followed-light>
+							<div data-paragraph-light>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra, erat vel pharetra fermentum, sem dui viverra nulla, ut facilisis lacus dui ut leo. Suspendisse porttitor lectus ac metus bibendum, sit amet auctor ipsum tempor.	
+							</div>
+						</div>
+					</div>
+					
+					<div class="card-light" >
+						<div class="card-head-light followed-light" data-base-color="rgba(75,75,75,0.2)" data-second-color="rgba(255,255,255,0.1)">
+							<div class="card-head-title-light"><h4>Buttons<h4></div>
+						</div>
+						<div class="card-body-light" data-followed-light>
+
+						<div class="group-light">
+							<button data-btn-light data-size="sm" data-text="hello"></button>
+							<button data-btn-light data-text="hello"></button>
+							<button data-btn-light data-size="lg" data-text="hello"></button>
+							<button data-btn-light data-size="lg" data-text="hello"></button>
+						</div>
+
+						</div>
+					</div>
+					<div class="card-light">
+						<div class="card-head-light followed-light" data-base-color="rgba(75,75,75,0.2)" data-second-color="rgba(255,255,255,0.1)">
+							<div class="card-head-title-light"><h4>Buttons<h4></div>
+						</div>
+						<div class="card-body-light" data-followed-light>
+
+						<div class="group-light">
+							<button data-btn-light data-color="blue" data-text="hello"></button>
+							<button data-btn-light data-color="red" data-text="hello"></button>
+						</div>
+
+						</div>
+					</div>
+					<div class="card-light">
+						<div class="card-head-light followed-light" data-base-color="rgba(75,75,75,0.2)" data-second-color="rgba(255,255,255,0.1)">
+							<div class="card-head-title-light"><h4>Popups<h4></div>
+						</div>
+						<div class="card-body-light" data-followed-light>
+							<button id="btn-1" data-btn-popup="#popup-01" data-btn-light data-text="open popup"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+		</div>		
+		<div id="popup-01" data-popup-light data-title="Small popup title">
+			<div data-paragraph-light>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra, erat vel pharetra fermentum, sem dui viverra nulla, ut facilisis lacus dui ut leo. Suspendisse porttitor lectus ac metus bibendum, sit amet auctor ipsum tempor.	
+			</div>
+		</div>
+		<script>
+
+
+		</script>
+		<script src="jquery.js"></script>	
+		<script src="js/script.js"></script>
+
+		<script src="js/popup.js"></script>
+		<script>
+			followedLight();
+			paragraphLight()
+			popupLight();
+
+			
+
+		</script>			
+		
+		<script src="button.js"></script>
+		<script>
+			
+		</script>
 	</body>
-<html>
+<html> 
