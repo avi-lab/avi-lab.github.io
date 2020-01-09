@@ -7,6 +7,7 @@ function toggel_track(){
 	var perY =Math.round(y/elem.offsetHeight *100);
 	elem.style.background="radial-gradient(circle farthest-side at "+perX+"% "+perY+"%, rgba(50, 50, 50, 0.2) 10%, rgba(255, 255, 255, 0.1) 50%)"
 }
+
 var elems = document.querySelectorAll('[data-followed-light]');
 elems.forEach((elem) => {
 	elem.onmouseover = function() {
@@ -58,15 +59,7 @@ document.onmouseup=function() {
 	var elems = document.querySelectorAll('.popup-opened-light .popup-container-light');
 	elems.forEach((elem) => {
 		if (elem!==event.target && !elem.contains(event.target)) {
-			const node = elem.parentElement;
-			node.classList.add('animated', "slideOutUp");
-			function handleAnimationEnd() {
-				node.classList.remove("popup-opened-light");
-				node.classList.remove("slideOutUp");
-				node.classList.remove("slideInDown");
-				node.removeEventListener('animationend', handleAnimationEnd);
-			}
-			node.addEventListener('animationend', handleAnimationEnd);
+			close_popup(elem.parentElement);
 		}
 	});
 };
@@ -150,22 +143,12 @@ function paragraphLight(){
 				<div class="popup-separate-light"></div>
 				</div>
 			</div>`;
+		buttonLight();
 		followedLight();
 		var btn = elem.querySelector('.popup-btn-close-light');
 		
-		
-
 		btn.onclick=function(){
-			elem.classList.add('animated', "slideOutUp");
-			function handleAnimationEnd() {
-				elem.classList.remove("popup-opened-light");
-				elem.classList.remove("slideOutUp");
-				elem.classList.remove("slideInDown");
-				elem.classList.remove('animated', "slideOutUp");
-				elem.removeEventListener('animationend', handleAnimationEnd);
-			}
-			elem.addEventListener('animationend', handleAnimationEnd)
-
+			close_popup(elem);
 		}
 		elem.removeAttribute("data-popup-light");
 		
@@ -173,10 +156,153 @@ function paragraphLight(){
 
 	elems = document.querySelectorAll('[data-btn-popup]');
 	elems.forEach((elem) => {
-		elem.onclick=function(){
-			document.querySelector(elem.getAttribute("data-btn-popup")).classList.remove("slideInDown");
-			document.querySelector(elem.getAttribute("data-btn-popup")).classList.add("popup-opened-light", "animated", "slideInDown");
+		elem.onclick=function(){	
+			var elem_popup = document.querySelector(elem.getAttribute("data-btn-popup"));
+			elem_popup.classList.remove("fadeOut");
+			elem_popup.classList.add("popup-opened-light", "animated", "fadeIn");
+			elem_popup.querySelector(".popup-container-light").classList.add("animated", "fadeInUp");
 		}
 	});
 }; 	
+
+function close_popup(elem) {
+	var elem_popup_container = elem.querySelector(".popup-container-light");
+	elem_popup_container.classList.add('animated',"fadeOutDown");
+	elem.classList.remove("fadeIn");
+	elem.classList.add('animated',"fadeOut");
+	function handleAnimationEnd() {
+		elem_popup_container.classList.remove('animated',"fadeOutDown");
+		elem.classList.remove("popup-opened-light");
+		elem.classList.remove('animated', "fadeOut");
+		elem.removeEventListener('animationend', handleAnimationEnd);
+	}
+	elem.addEventListener('animationend', handleAnimationEnd);
+}
+
+
+function buttonLight(){
+
+	var	elems = document.querySelectorAll('[data-btn-light]');
+	elems.forEach((elem) => {
+		elem.classList.add("btn-light", "component-light");
+		elem.innerHTML='<div class="btn-body-light"> <div class="border-light"></div> <div class="btn-content-light"> <div class="text-light">'+elem.dataset["text"]+'</div> </div> </div>';
+		elem.removeAttribute("data-text");
+		
+		if(elem.dataset["color"]!=null && elem.dataset["color"]!==""){
+			elem.classList.add(elem.dataset["color"]+"-light");
+			elem.removeAttribute("data-color");
+		}
+
+		if(elem.dataset["size"]!=null && elem.dataset["size"]!==""){
+			elem.classList.add(elem.dataset["size"]+"-light");
+			elem.removeAttribute("data-size");
+		}
+		function elem_crocked(elem){
+			elem.classList.add("click-light");
+			var rect = elem.getBoundingClientRect();
+			var x=Math.round(event.pageX-rect.left);
+			x=x<2?0:x;
+			if(x<=event.currentTarget.offsetWidth/3){
+				elem.style.transform="rotate(-2deg)";
+			}else if(x>=event.currentTarget.offsetWidth*2/3){
+				elem.style.transform="rotate(2deg)";
+			}else{
+				elem.style.transform="";
+			}
+		}
+		elem.onmousedown=function(){
+			elem_crocked(elem);
+		};
+		elem.onmouseup=function(){
+			setTimeout(function(){
+				elem.classList.remove("click-light");				
+				elem.style.transform="";
+			},200);
+		};
+		
+		
+		elem.onmousemove = function (){
+			var elem = event.currentTarget;
+			if(elem.classList.contains("hover-light")){
+				var ls = document.querySelector('.ls-light'); if(ls!=null) ls.classList.remove("ls-light");					
+				var rs = document.querySelector('.rs-light'); if(rs!=null) rs.classList.remove("rs-light");					
+				var bs = document.querySelector('.bs-light'); if(bs!=null) bs.classList.remove("bs-light");					
+				var ts = document.querySelector('.ts-light'); if(ts!=null) ts.classList.remove("ts-light");					
+				elem.style.transform="";
+				elem.querySelector('.border-light').style.background="";
+				var rect = elem.getBoundingClientRect();
+				var x=Math.round(event.pageX-rect.left);
+				x=x<2?0:x;
+				var perX =Math.round(x/event.currentTarget.offsetWidth*100);
+				if(perX<30){ perX = 0; } 
+				if(perX>70){ perX = 100; }
+				
+				var y=Math.round(event.pageY-rect.top);
+				y=y<2?0:y;
+
+				var perY =Math.round(y/event.currentTarget.offsetHeight*100);
+				if(perY<30){ perY = 0; } 
+				if(perY>70){ perY = 100; }
+				if(elem.classList.contains("blue-light")){
+					elem.querySelector(".border-light").style.background="linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(93,172,227,1) "+perX+"%, rgba(255,255,255,1) 100%)";
+
+				}else if(elem.classList.contains("red-light")){
+					elem.querySelector(".border-light").style.background="linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(231,80,90,1) "+perX+"%, rgba(255,255,255,1) 100%)";
+
+				}else{
+					elem.querySelector(".border-light").style.background="linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(120,120,120,1) "+perX+"%, rgba(255,255,255,1) 100%)";
+
+				}
+				elem.style["box-shadow"]=perX/20-2.5+"px "+(perY/20-2.5)+"px 5px 0px rgba(120,120,120,.75)";
+				
+				if(elem.previousElementSibling!=null && x<=event.currentTarget.offsetWidth/3 && elem.getBoundingClientRect().top==elem.previousElementSibling.getBoundingClientRect().top){
+						elem.previousElementSibling.classList.add("ls-light");
+				}else if (elem.nextElementSibling!=null && x>=event.currentTarget.offsetWidth*2/3 && elem.getBoundingClientRect().top==elem.nextElementSibling.getBoundingClientRect().top){
+						elem.nextElementSibling.classList.add("rs-light");
+				}
+			
+				var previousElement = elem.previousElementSibling;
+				while(previousElement!=null){
+					if(y<=event.currentTarget.offsetHeight/3){
+						if(elem.getBoundingClientRect().left==previousElement.getBoundingClientRect().left){
+							previousElement.classList.add("ts-light");
+							return;
+						}
+					}
+					previousElement = previousElement.previousElementSibling;
+				}
+
+				var nextElement = elem.nextElementSibling;
+				while(nextElement!=null){
+					if(y>=event.currentTarget.offsetHeight*2/3){
+						if(elem.getBoundingClientRect().left==nextElement.getBoundingClientRect().left){
+							nextElement.classList.add("bs-light");
+							return;
+						}
+					}
+					nextElement = nextElement.nextElementSibling;
+				}
+			}
+			if(elem.classList.contains("click-light")){
+				var elem = event.currentTarget;
+				elem_crocked(elem);
+			}
+			
+		}
+		elem.onmouseenter = function() {
+			elem.classList.add("hover-light");
+		};
+		elem.onmouseleave = function() {
+			var ls = document.querySelector('.ls-light'); if(ls!=null) ls.classList.remove("ls-light");					
+			var rs = document.querySelector('.rs-light'); if(rs!=null) rs.classList.remove("rs-light");					
+			var bs = document.querySelector('.bs-light'); if(bs!=null) bs.classList.remove("bs-light");					
+			var ts = document.querySelector('.ts-light'); if(ts!=null) ts.classList.remove("ts-light");					
+			elem.style["box-shadow"]="";
+			elem.classList.remove("hover-light");
+			elem.querySelector('.border-light').style.background="";
+			elem.dispatchEvent(new Event("mouseup"));
+		};
+		elem.removeAttribute("data-btn-light");
+	});
+};
 
