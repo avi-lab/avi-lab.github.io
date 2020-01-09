@@ -93,6 +93,10 @@ function followedLight(){
 function paragraphLight(){
 	var elems = document.querySelectorAll('[data-paragraph-light]');
 	elems.forEach((elem) => {
+		var color=elem.dataset["color"];
+		if(color!=null && color!==""){
+			elem.classList.add(color+"-paragraph-light");
+		}
 		elem.classList.add("paragraph-light", "component-light");
 		elem.innerHTML=`<div class="paragraph-border-light">
 							<svg viewBox="0 0 384 384" style="width: 16px;position: absolute; bottom: 0; right: 0;">
